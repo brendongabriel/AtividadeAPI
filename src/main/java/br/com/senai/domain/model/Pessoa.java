@@ -21,7 +21,6 @@ public class Pessoa {
 
     private String email;
 
-    @Column(name = "fone")
     private String telefone;
 
 }
