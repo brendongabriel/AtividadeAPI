@@ -14,15 +14,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/pessoas")
 public class PessoaController {
-    //@PersistenceContext
-    //private EntityManager entityManager;
-   // @Autowired
     private PessoaRepository pessoaRepository;
     private PessoaService pessoaService;
 
     @GetMapping
     public List<Pessoa> listar(){
-       // return entityManager.createQuery("FROM Pessoa", Pessoa.class).getResultList();
         return pessoaRepository.findAll();
     }
 
@@ -38,11 +34,6 @@ public class PessoaController {
 
     @GetMapping("{pessoaId}")
     public ResponseEntity<Pessoa> buscar(@PathVariable Long pessoaId){
-//        Optional<Pessoa> pessoa = pessoaRepository.findById(pessoaId);
-//        if (pessoa.isPresent()){
-//            return ResponseEntity.ok(pessoa.get());
-//        }
-//        return ResponseEntity.notFound().build();
         return pessoaRepository.findById(pessoaId).map(pessoa -> ResponseEntity.ok(pessoa))
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -68,7 +59,7 @@ public class PessoaController {
         if (!pessoaRepository.existsById(pessoaId)) {
             return ResponseEntity.notFound().build();
         }
-        pessoaRepository.deleteById(pessoaId);
+        pessoaService.deletar(pessoaId);
         return ResponseEntity.noContent().build();
     }
 }
