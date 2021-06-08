@@ -1,5 +1,7 @@
 package br.com.senai.domain.model;
 
+import br.com.senai.domain.ValidationGroups;
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -10,6 +12,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.validation.groups.Default;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +21,8 @@ import javax.validation.constraints.Size;
 @Entity
 @FieldDefaults(level = PRIVATE)
 public class Pessoa {
+
+    @NotNull(groups = ValidationGroups.ClienteId.class)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
      long id;
