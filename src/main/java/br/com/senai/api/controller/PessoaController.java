@@ -26,21 +26,20 @@ public class PessoaController {
         return pessoaService.listar();
     }
 
-//    @GetMapping("/nome/{pessoaNome}")
-//    public List<PessoaModel> listarPorNome(@PathVariable String pessoaNome){
-//        return pessoaService.buscarNome(pessoaNome);
-//    }
+    @GetMapping("/nome/{pessoaNome}")
+    public List<PessoaModel> listarPorNome(@PathVariable String pessoaNome){
+        return pessoaService.buscarNome(pessoaNome);
+    }
 
-//    @GetMapping("/nome/containing/{nomeContaining}")
-//    public List<Pessoa> listarNomeContaining(@PathVariable String nomeContaining){
-//        return pessoaRepository.findByNomeContaining(nomeContaining);
-//    }
+    @GetMapping("/nome/containing/{nomeContaining}")
+    public List<PessoaModel> listarNomeContaining(@PathVariable String nomeContaining){
+        return pessoaService.listarContaining(nomeContaining);
+    }
 
-//    @GetMapping("{pessoaId}")
-//    public ResponseEntity<Pessoa> buscar(@PathVariable Long pessoaId){
-//        return pessoaRepository.findById(pessoaId).map(pessoa -> ResponseEntity.ok(pessoa))
-//                .orElse(ResponseEntity.notFound().build());
-//    }
+    @GetMapping("{pessoaId}")
+    public ResponseEntity<PessoaModel> buscarId(@PathVariable Long pessoaId){
+        return pessoaService.buscarId(pessoaId);
+    }
 
     @PostMapping
     public PessoaModel cadastrar(@Valid @RequestBody PessoaInput pessoaInput){
@@ -49,23 +48,18 @@ public class PessoaController {
         return pessoaAssembler.toModel(pessoa);
     }
 
-//    @PutMapping("/{pessoaId}")
-//    public ResponseEntity<Pessoa> editar(@Valid @PathVariable Long pessoaId,
-//                                         @RequestBody Pessoa pessoa){
-//        if (!pessoaRepository.existsById(pessoaId)){
-//            return ResponseEntity.notFound().build();
-//        }
-//        pessoa.setId(pessoaId);
-//        pessoa = pessoaRepository.save(pessoa);
-//        return ResponseEntity.ok(pessoa);
-//    }
+    @PutMapping("/{pessoaId}")
+    public ResponseEntity<PessoaModel> editar(@Valid @PathVariable Long pessoaId,
+                                         @RequestBody Pessoa pessoa){
+     return pessoaService.editar(pessoaId,pessoa);
+    }
 
-//    @DeleteMapping("/{pessoaId}")
-//    public ResponseEntity<Pessoa> remover(@PathVariable Long pessoaId){
-//        if (!pessoaRepository.existsById(pessoaId)) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        pessoaService.deletar(pessoaId);
-//        return ResponseEntity.noContent().build();
-//    }
+    @DeleteMapping("/{pessoaId}")
+    public ResponseEntity<Pessoa> remover(@PathVariable Long pessoaId){
+        if (!pessoaRepository.existsById(pessoaId)) {
+            return ResponseEntity.notFound().build();
+        }
+        pessoaService.deletar(pessoaId);
+        return ResponseEntity.noContent().build();
+    }
 }
