@@ -1,6 +1,7 @@
 package br.com.senai.api.assembler;
 
 import br.com.senai.api.model.PessoaModel;
+import br.com.senai.api.model.input.ClienteInput;
 import br.com.senai.api.model.input.EntregaInput;
 import br.com.senai.api.model.input.PessoaInput;
 import br.com.senai.domain.model.Pessoa;
@@ -31,6 +32,10 @@ public class PessoaAssembler {
 
     public PessoaModel toModel(Pessoa pessoa){
         return modelMapper.map(pessoa, PessoaModel.class);
+    }
+
+    public Pessoa toEntity(ClienteInput clienteInput) {
+        return modelMapper.map(clienteInput, Pessoa.class);
     }
 
 }

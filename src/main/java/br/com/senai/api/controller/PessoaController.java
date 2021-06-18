@@ -2,6 +2,7 @@ package br.com.senai.api.controller;
 
 import br.com.senai.api.assembler.PessoaAssembler;
 import br.com.senai.api.model.PessoaModel;
+import br.com.senai.api.model.input.ClienteInput;
 import br.com.senai.api.model.input.PessoaInput;
 import br.com.senai.domain.model.Pessoa;
 import br.com.senai.domain.repository.PessoaRepository;
@@ -50,16 +51,19 @@ public class PessoaController {
 
     @PutMapping("/{pessoaId}")
     public ResponseEntity<PessoaModel> editar(@Valid @PathVariable Long pessoaId,
-                                         @RequestBody Pessoa pessoa){
-     return pessoaService.editar(pessoaId,pessoa);
+                                         @RequestBody PessoaInput pessoaInput){
+        Pessoa pessoa1 = pessoaAssembler.toEntity(pessoaInput);
+        pessoaService.editar(pessoaId,pessoa1);
+        return ResponseEntity.ok(pessoaAssembler.toModel(pessoa1));
     }
 
     @DeleteMapping("/{pessoaId}")
-    public ResponseEntity<Pessoa> remover(@PathVariable Long pessoaId){
-        if (!pessoaRepository.existsById(pessoaId)) {
+    public ResponseEntity<Pessoa> remover(@PathVariable ClienteInput clienteInput){
+        Pessoa pessoa = pessoaAssembler.toEntity(clienteInput);
+        if (!pessoaRepository.existsById(pessoa.getId())) {
             return ResponseEntity.notFound().build();
         }
-        pessoaService.deletar(pessoaId);
+        pessoaService.deletar(pessoa.getId());
         return ResponseEntity.noContent().build();
     }
 }
