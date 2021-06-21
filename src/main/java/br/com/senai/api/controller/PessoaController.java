@@ -57,13 +57,12 @@ public class PessoaController {
         return ResponseEntity.ok(pessoaAssembler.toModel(pessoa1));
     }
 
-    @DeleteMapping("/{pessoaId}")
-    public ResponseEntity<Pessoa> remover(@PathVariable ClienteInput clienteInput){
-        Pessoa pessoa = pessoaAssembler.toEntity(clienteInput);
-        if (!pessoaRepository.existsById(pessoa.getId())) {
+        @DeleteMapping("/{pessoaId}")
+    public ResponseEntity<Pessoa> remover(@PathVariable Long pessoaId){
+        if(!pessoaRepository.existsById(pessoaId)) {
             return ResponseEntity.notFound().build();
         }
-        pessoaService.deletar(pessoa.getId());
+        pessoaService.deletar(pessoaId);
         return ResponseEntity.noContent().build();
     }
 }
