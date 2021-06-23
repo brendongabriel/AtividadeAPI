@@ -14,5 +14,5 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
 
     List<Pessoa> findByNomeContaining(String nome);
 
-    Optional<Pessoa> findByEmail(String email);
+    //Optional<Pessoa> findByEmail(String email);
 }

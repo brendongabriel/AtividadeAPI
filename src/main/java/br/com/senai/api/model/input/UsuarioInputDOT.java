@@ -3,13 +3,18 @@ package br.com.senai.api.model.input;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Setter
 @Getter
-public class OcorrenciaInput {
+public class UsuarioInputDOT {
 
     @NotBlank
-    private String descricao;
+    @Email
+    private String email;
+
+    @NotBlank
+    private String senha;
 
 }

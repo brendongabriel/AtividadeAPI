@@ -1,6 +1,5 @@
 package br.com.senai.api.model.input;
 
-import br.com.senai.domain.model.Destinatario;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,15 +9,15 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class EntregaInput {
+public class EntregaInputDTO {
 
     @Valid
     @NotNull
-    private ClienteInput pessoa;
+    private ClienteInputDTO pessoa;
 
     @Valid
     @NotNull
-    private DestinatarioInput destinatario;
+    private DestinatarioInputDTO destinatario;
 
     @NotNull
     private BigDecimal taxa;
