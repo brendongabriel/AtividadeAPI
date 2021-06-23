@@ -50,8 +50,8 @@ public class PessoaService {
                 .orElseThrow(()->new NegocioException("Pessoa não encontrada."));
     }
 
-    public List<PessoaDTO> listar(){
-        return pessoaAssembler.toCollectionModel(pessoaRepository.findAll());
+    public List<Pessoa> listar(){
+        return pessoaRepository.findAll();
     }
 
     public List<PessoaDTO> buscarNome(String nome){

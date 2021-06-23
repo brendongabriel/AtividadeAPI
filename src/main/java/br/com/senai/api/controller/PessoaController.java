@@ -24,7 +24,7 @@ public class PessoaController {
 
     @GetMapping
     public List<PessoaDTO> listar(){
-        return pessoaService.listar();
+        return pessoaAssembler.toCollectionModel(pessoaService.listar());
     }
 
     @GetMapping("/nome/{pessoaNome}")
