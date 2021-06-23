@@ -19,7 +19,6 @@ public class PessoaService {
 
     private PessoaRepository pessoaRepository;
     private PessoaAssembler pessoaAssembler;
-    private ModelMapper modelMapper;
 
     @Transactional
     public Pessoa cadastrar(Pessoa pessoa){
