@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class RoleUsuarioService {
 
-    private RoleUsuarioAssembler roleUsuarioAssembler;
     private RoleUsuarioRepository roleUsuarioRepository;
+
     @Transactional
     public RoleUsuario cadastrar(RoleUsuario roleUsuario){
         return roleUsuarioRepository.save(roleUsuario);

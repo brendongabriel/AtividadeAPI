@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class RoleUsuarioDTO {
 
+    private Long id;
+
     private Long usuarios_id;
 
     private  String role_nome_role;

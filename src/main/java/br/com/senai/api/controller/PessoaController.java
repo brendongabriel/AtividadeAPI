@@ -47,9 +47,9 @@ public class PessoaController {
     @PostMapping
     public PessoaDTO cadastrar(@Valid @RequestBody PessoaInputDTO pessoaInputDTO){
         Pessoa novaPessoa = pessoaAssembler.toEntity(pessoaInputDTO);
-        Pessoa pessoa = pessoaService.cadastrar(novaPessoa);
-        pessoa.getUsuario().setSenha(new BCryptPasswordEncoder()
+        novaPessoa.getUsuario().setSenha(new BCryptPasswordEncoder()
                 .encode(pessoaInputDTO.getUsuario().getSenha()));
+        Pessoa pessoa = pessoaService.cadastrar(novaPessoa);
         return pessoaAssembler.toModel(pessoa);
     }
 

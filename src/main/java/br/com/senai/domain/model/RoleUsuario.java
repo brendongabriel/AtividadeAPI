@@ -8,13 +8,15 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@Table(name = "role_usuarios")
 public class RoleUsuario {
 
     @Id
-    @OneToOne(cascade = CascadeType.ALL)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private Long usuarios_id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
     private  String role_nome_role;
 
 }
