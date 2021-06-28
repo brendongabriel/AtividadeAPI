@@ -1,6 +1,5 @@
 package br.com.senai.api.controller;
-
-import br.com.senai.domain.model.AuthenticationRensonse;
+import br.com.senai.domain.model.AuthenticationResponse;
 import br.com.senai.domain.model.Usuario;
 import br.com.senai.security.ImplementsUserDetailsService;
 import br.com.senai.security.JWTUtil;
@@ -12,31 +11,36 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
 @AllArgsConstructor
+@RestController
 public class LoginController {
 
     private AuthenticationManager authenticationManager;
     private ImplementsUserDetailsService implementsUserDetailsService;
     private JWTUtil jwtUtil;
 
+    @RequestMapping("/hello")
+    public String hello(){
+        return "Hello World";
+    }
+
     @PostMapping("/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody Usuario usuario) throws  Exception{
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody Usuario usuario) throws Exception{
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(usuario.getUsername(), usuario.getPassword())
             );
-        }catch (BadCredentialsException ex){
-            throw new Exception("Usuario ou senha invalido",ex);
+        } catch (BadCredentialsException e){
+            throw new Exception("Usuário ou senha inválidos.", e);
         }
 
-        final UserDetails userDetails = implementsUserDetailsService.loadUserByUsername(
-                usuario.getUsername());
+        final UserDetails userDetails = implementsUserDetailsService.loadUserByUsername(usuario.getUsername());
         final String jwt = jwtUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new AuthenticationRensonse(jwt));
 
+        return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
 }
