@@ -10,8 +10,11 @@ import javax.validation.constraints.NotBlank;
 @Getter
 public class UsuarioInputDOT {
 
+    @NotBlank
+    @Email
     private String email;
 
+    @NotBlank
     private String senha;
 
 }

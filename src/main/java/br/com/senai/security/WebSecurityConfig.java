@@ -27,8 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       "/",
       "/pessoas",
       "/pessoas/{pessoaId}",
-            "/pessoas/role",
-            "/entregas"
+            "/pessoas/role"
     };
 
     @Override
@@ -36,17 +35,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
         .authorizeRequests()
         .antMatchers(HttpMethod.GET, "/entregas").hasRole("ADMIN")
+        .antMatchers(HttpMethod.GET, "/entregas").hasRole("USER")
         .antMatchers("/authenticate").permitAll()
         .antMatchers(HttpMethod.GET,AUTH_LIST).permitAll()
         .antMatchers(HttpMethod.POST,AUTH_LIST).permitAll()
         .antMatchers(HttpMethod.PUT,AUTH_LIST).permitAll()
         .antMatchers(HttpMethod.DELETE,AUTH_LIST).permitAll()
         .anyRequest().authenticated()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and().logout()
         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
         .deleteCookies("token").invalidateHttpSession(true);
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
